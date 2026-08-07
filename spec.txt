@@ -1,0 +1,34 @@
+DESIGN DOCUMENT 5: tpt-rust-5 (THE REFLEXES & SAFETY GUARDRAILS)
+PROJECT OVERVIEW - https://github.com/tpt-solutions/tpt-protocol
+tpt-rust-5 is the final safety and control layer. Before the Brain's optimal setpoints are sent to the physical hardware, the Reflexes layer ensures the commands are mechanically safe, logically permitted, and properly prioritized.
+ECOSYSTEM GAP JUSTIFICATION
+Rust has basic PID crates, but it has almost zero infrastructure for industrial safety guardrails, interlocks, priority arbitration, and safe actuation gating. This is the most desperate gap for physical control systems; without it, automated optimization can destroy physical hardware.
+CORE PRINCIPLES
+Safety Over Optimization: An E-stop or mechanical interlock will always override the Brain's most profitable mathematical solution.
+Mechanical Empathy: Actuators have physical limits. Valves cause water hammer. Motors draw inrush current. Rate limiters and deadbands must protect the hardware.
+Absolute Auditability: Every blocked, modified, or executed command must have a cryptographic or strictly logged reason code.
+CRATE INVENTORY
+tpt-control-action
+Core traits for physical setpoints, discrete states (ON/OFF/FAULT), and continuous values (0-100%), mapped to TUP command envelopes.
+tpt-control-limiter
+Saturation, deadbands, and hysteresis logic for physical actuators to prevent rapid cycling and mechanical wear.
+tpt-control-ratelimit
+Slew-rate limiters and ramp-generators to prevent mechanical shock (e.g., preventing valve water hammer or motor inrush currents).
+tpt-safety-interlock
+Boolean logic engine for permissives and blocking conditions (e.g., "Do not start pump if suction pressure < X").
+tpt-safety-envelope
+Alarm generation, E-stop logic, and safe-state degradation paths when sensors fail or power is lost.
+tpt-control-dryrun
+Shadow execution engine that compares a new control policy against the current live state without actually sending the TUP command to the hardware.
+tpt-actuation-gate
+The final pre-flight check that validates a TUP command envelope against all safety limits and interlocks before handing it to the tpt-protocol daemon.
+tpt-state-machine
+Deterministic, auditable Finite State Machines (FSMs) for complex hardware sequences (e.g., boiler purge/start/stop sequences).
+tpt-control-priority
+Priority arbitration logic for competing control sources (Safety > Manual Override > Auto-Optimization > Schedule).
+tpt-control-audit
+Reason-code logging for exactly why a specific setpoint was chosen, modified, or blocked by the safety guardrails.
+TUP INTEGRATION & DATA FLOW
+tpt-rust-5 sits between the Brain and the Senses.
+Read Path: Receives proposed TUP Command Envelopes from tpt-dispatch-solve. Reads live hardware state from tpt-state-snapshot.
+Write Path: Passes validated, safe TUP Commands to tpt-protocol-daemon for physical execution.
