@@ -1,0 +1,24 @@
+[package]
+name = "tpt-control-priority"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Priority arbitration for competing control sources in tpt-rust5 (no_std)"
+rust-version.workspace = true
+categories = ["embedded", "no-std", "science::robotics"]
+keywords = ["control", "priority", "arbitration", "safety", "tup"]
+
+[dependencies]
+tpt-control-action = { workspace = true, default-features = false }
+tpt-control-audit = { workspace = true, default-features = false }
+serde = { version = "1", optional = true, default-features = false, features = ["derive"] }
+
+[features]
+default = []
+serde = ["dep:serde", "tpt-control-action/serde"]
+
+[lints]
+workspace = true

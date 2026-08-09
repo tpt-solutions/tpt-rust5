@@ -1,0 +1,24 @@
+[package]
+name = "tpt-control-audit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Reason-code logging and decision provenance for tpt-rust5 safety guardrails"
+rust-version.workspace = true
+categories = ["embedded", "no-std", "science::robotics"]
+keywords = ["audit", "safety", "reason-code", "tup", "industrial"]
+
+[dependencies]
+tpt-control-action = { workspace = true, default-features = false }
+serde = { version = "1", optional = true, default-features = false, features = ["derive"] }
+
+[features]
+default = ["std"]
+std = []
+serde = ["dep:serde", "tpt-control-action/serde"]
+
+[lints]
+workspace = true

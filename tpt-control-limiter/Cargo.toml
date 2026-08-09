@@ -1,0 +1,19 @@
+[package]
+name = "tpt-control-limiter"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Saturation, deadband, and hysteresis limiting for physical actuators (no_std)"
+rust-version.workspace = true
+categories = ["embedded", "no-std", "science::robotics"]
+keywords = ["control", "limiter", "deadband", "hysteresis", "safety"]
+
+[dependencies]
+tpt-control-action = { workspace = true, default-features = false }
+tpt-control-audit = { workspace = true, default-features = false }
+
+[lints]
+workspace = true

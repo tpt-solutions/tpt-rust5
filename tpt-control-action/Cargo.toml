@@ -1,0 +1,22 @@
+[package]
+name = "tpt-control-action"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Core setpoint/state traits and TUP command-envelope model for tpt-rust5 (no_std)"
+rust-version.workspace = true
+categories = ["embedded", "no-std", "science::robotics"]
+keywords = ["tup", "control", "actuator", "safety", "industrial"]
+
+[dependencies]
+serde = { version = "1", optional = true, default-features = false, features = ["derive"] }
+
+[features]
+default = []
+serde = ["dep:serde"]
+
+[lints]
+workspace = true

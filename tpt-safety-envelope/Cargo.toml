@@ -1,0 +1,25 @@
+[package]
+name = "tpt-safety-envelope"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Alarms, E-stop, and safe-state degradation for tpt-rust5 (no_std)"
+rust-version.workspace = true
+categories = ["embedded", "no-std", "science::robotics"]
+keywords = ["safety", "estop", "alarm", "safe-state", "industrial"]
+
+[dependencies]
+tpt-control-action = { workspace = true, default-features = false }
+tpt-control-audit = { workspace = true, default-features = false }
+tpt-safety-interlock = { workspace = true, default-features = false }
+serde = { version = "1", optional = true, default-features = false, features = ["derive", "alloc"] }
+
+[features]
+default = []
+serde = ["dep:serde", "tpt-control-action/serde", "tpt-safety-interlock/serde"]
+
+[lints]
+workspace = true

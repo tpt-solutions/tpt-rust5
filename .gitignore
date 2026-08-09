@@ -1,10 +1,7 @@
 /target
+**/*.rs.bk
 Cargo.lock
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Editor
-.vscode/
 .idea/
+.vscode/
+*.swp
+.DS_Store

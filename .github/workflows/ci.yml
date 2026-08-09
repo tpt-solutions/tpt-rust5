@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-D warnings"
+
+jobs:
+  build-test:
+    name: Build, Test, Fmt, Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Format check
+        run: cargo fmt --all -- --check
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Build (default features)
+        run: cargo build --workspace
+      - name: Test
+        run: cargo test --workspace
+
+  no_std-check:
+    name: no_std build (7 constrained crates)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: thumbv7em-none-eabihf
+      - name: Install cargo-no-std-check
+        run: cargo install cargo-no-std-check
+      - name: Verify no_std crates build without std
+        run: |
+          for crate in tpt-control-action tpt-control-limiter tpt-control-ratelimit \
+                       tpt-safety-interlock tpt-safety-envelope tpt-control-priority tpt-state-machine; do
+            echo "==> no_std check: $crate"
+            (cd "$crate" && cargo no-std-check)
+          done

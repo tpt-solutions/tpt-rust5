@@ -1,0 +1,25 @@
+[package]
+name = "tpt-actuation-gate"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Final pre-flight validation gate for tpt-rust5 actuation (std)"
+rust-version.workspace = true
+categories = ["science::robotics"]
+keywords = ["actuation", "gate", "safety", "validation", "tup"]
+
+[dependencies]
+tpt-control-action = { workspace = true }
+tpt-control-audit = { workspace = true, default-features = true }
+tpt-control-limiter = { workspace = true }
+tpt-control-ratelimit = { workspace = true }
+tpt-safety-interlock = { workspace = true }
+tpt-safety-envelope = { workspace = true }
+tpt-control-priority = { workspace = true }
+tpt-control-dryrun = { workspace = true }
+
+[lints]
+workspace = true

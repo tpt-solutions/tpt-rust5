@@ -1,0 +1,21 @@
+[package]
+name = "tpt-control-dryrun"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Shadow execution / dry-run engine for tpt-rust5 control policies (std)"
+rust-version.workspace = true
+categories = ["science::robotics"]
+keywords = ["dry-run", "shadow", "simulation", "safety", "tup"]
+
+[dependencies]
+tpt-control-action = { workspace = true }
+tpt-control-audit = { workspace = true, default-features = true }
+tpt-safety-interlock = { workspace = true }
+tpt-safety-envelope = { workspace = true }
+
+[lints]
+workspace = true

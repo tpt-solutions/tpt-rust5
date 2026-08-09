@@ -1,0 +1,19 @@
+[package]
+name = "tpt-control-ratelimit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Slew-rate limiters and ramp generators for mechanical-shock-safe actuation (no_std)"
+rust-version.workspace = true
+categories = ["embedded", "no-std", "science::robotics"]
+keywords = ["control", "rate-limit", "slew-rate", "ramp", "safety"]
+
+[dependencies]
+tpt-control-action = { workspace = true, default-features = false }
+tpt-control-audit = { workspace = true, default-features = false }
+
+[lints]
+workspace = true

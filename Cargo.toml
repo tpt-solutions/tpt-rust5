@@ -1,0 +1,44 @@
+[workspace]
+resolver = "2"
+members = [
+    "tpt-control-action",
+    "tpt-control-limiter",
+    "tpt-control-ratelimit",
+    "tpt-safety-interlock",
+    "tpt-safety-envelope",
+    "tpt-control-priority",
+    "tpt-state-machine",
+    "tpt-control-dryrun",
+    "tpt-control-audit",
+    "tpt-actuation-gate",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["TPT Solutions"]
+repository = "https://github.com/tpt-solutions/tpt-rust5"
+homepage = "https://github.com/tpt-solutions/tpt-rust5"
+description = "The Reflexes & Safety Guardrails — final safety and control layer for the TUP platform"
+rust-version = "1.74"
+
+[workspace.dependencies]
+tpt-control-action = { path = "tpt-control-action", version = "0.1.0", default-features = false }
+tpt-control-audit = { path = "tpt-control-audit", version = "0.1.0", default-features = false }
+tpt-control-limiter = { path = "tpt-control-limiter", version = "0.1.0", default-features = false }
+tpt-control-ratelimit = { path = "tpt-control-ratelimit", version = "0.1.0", default-features = false }
+tpt-safety-interlock = { path = "tpt-safety-interlock", version = "0.1.0", default-features = false }
+tpt-safety-envelope = { path = "tpt-safety-envelope", version = "0.1.0", default-features = false }
+tpt-control-priority = { path = "tpt-control-priority", version = "0.1.0", default-features = false }
+tpt-state-machine = { path = "tpt-state-machine", version = "0.1.0", default-features = false }
+tpt-control-dryrun = { path = "tpt-control-dryrun", version = "0.1.0" }
+tpt-actuation-gate = { path = "tpt-actuation-gate", version = "0.1.0" }
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+wildcard_imports = "allow"
